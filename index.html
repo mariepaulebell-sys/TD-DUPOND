@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>M. Dupont – Réflexion dans l’action</title>
+<style>
+:root{--bg:#eef4f5;--fg:#16272c;--card:#fff;--ac:#1f6f78;--bt:#fff;--mut:#587077;--bd:#c9dadd;--ok:#2e8b63;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a1d;--fg:#e4eef0;--card:#1a272b;--ac:#62c3cd;--bt:#08181b;--mut:#9db3b9;--bd:#32474d;--ok:#5cc596}}
+:root[data-theme="dark"]{--bg:#101a1d;--fg:#e4eef0;--card:#1a272b;--ac:#62c3cd;--bt:#08181b;--mut:#9db3b9;--bd:#32474d;--ok:#5cc596}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 "Trebuchet MS",Verdana,system-ui,sans-serif}
+.w{max-width:700px;margin:0 auto;padding:10px 12px 28px}
+h1{font-size:20px;margin:6px 0 2px}h2{font-size:17px;margin:0 0 6px}
+.mut{color:var(--mut);font-size:14px}
+.sc{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--bd)}
+svg{display:block;width:100%;height:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-top:10px}
+.steps{display:flex;gap:4px;margin:10px 0 0}.steps i{flex:1;height:5px;border-radius:3px;background:var(--bd)}.steps i.on{background:var(--ac)}
+.b{background:var(--ac);color:var(--bt);border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;margin-top:10px;cursor:pointer}
+.b:disabled{opacity:.4;cursor:not-allowed}.b.g{background:transparent;color:var(--ac);border:2px solid var(--ac)}
+.o{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border:1px solid var(--bd);border-radius:10px;margin-top:7px;cursor:pointer}
+.o:has(input:checked){border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
+.o input{margin-top:4px;accent-color:var(--ac)}
+.ob{border-left:4px solid var(--ac);padding:6px 10px;margin-top:7px;background:color-mix(in srgb,var(--ac) 9%,transparent);border-radius:0 8px 8px 0;animation:in .4s}
+.ob.nw{border-color:#e08a1e;background:color-mix(in srgb,#e08a1e 14%,transparent)}
+.bub{position:absolute;max-width:62%;padding:8px 11px;border-radius:12px;font-size:14px;line-height:1.35;background:#fff;color:#16272c;box-shadow:0 2px 8px #0004;animation:in .3s;display:none}
+.bub.p{left:3%;top:4%}.bub.n{right:3%;top:4%;background:#d3eef1}
+.hs{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid #fff;background:#f0a04bd9;padding:0;cursor:pointer;animation:pu 1.2s infinite}
+.hs.d{background:#4caf86;animation:none}
+.m{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-top:9px;cursor:pointer}
+ul{margin:4px 0 0;padding-left:20px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes pu{50%{transform:scale(1.22)}}
+@keyframes wi{from{transform:translateX(90px);opacity:0}to{transform:none;opacity:1}}
+@keyframes lean{40%{transform:translateX(-28px) rotate(-4deg)}}
+@keyframes br{50%{transform:scaleY(1.04)}}
+@keyframes sh{50%{transform:translateX(3px)}}
+#nu,#hd,#pt,#tz{transform-box:fill-box}
+#nu{transform-origin:50% 100%}#nu.in{animation:wi 1.2s ease-out}#nu.act{animation:lean 1.5s ease-in-out}
+#tz{transform-origin:50% 100%;animation:br 3s ease-in-out infinite}
+#hd{transform-origin:50% 100%;transition:transform .5s}
+.m-sad #hd{transform:rotate(-12deg) translateX(-6px)}.m-pain #hd{transform:rotate(9deg) translateY(2px)}
+.m-agit #pt{animation:sh .3s infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+button:focus-visible,.o:focus-within{outline:3px solid var(--ac);outline-offset:2px}
+
+.hd{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.tm{font-weight:700;font-size:15px;color:var(--ac);white-space:nowrap}.tm.w{color:#e08a1e}.tm.r{color:#d64545}
+.sd{padding:5px 10px;font-size:13px;margin:6px 0 0}
+.blk,#mo,#nm,#b1,#b2,#ar{transform-box:fill-box;transform-origin:center}
+.blk{animation:bk 4.5s infinite}@keyframes bk{94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+#b1,#b2{transition:transform .5s}
+.m-sad #b1{transform:rotate(-14deg)}.m-sad #b2{transform:rotate(14deg)}
+.m-pain #b1,.m-agit #b1{transform:rotate(15deg)}.m-pain #b2,.m-agit #b2{transform:rotate(-15deg)}
+.m-pain #sw,.m-agit #sw{opacity:.9}.m-agit .blk{transform:scale(1.15)}
+.tkp #mo,.tkn #nm{animation:tk .25s infinite}@keyframes tk{50%{transform:scaleY(2)}}
+#ar{transform-origin:100% 0}#nu.act #ar{animation:rc 1.5s ease-in-out}@keyframes rc{40%{transform:rotate(-22deg)}}
+.bub.v{right:2%;top:5%;max-width:38%;font-size:13px;background:#e8e0f4}
+#vw,#vm{transform-box:fill-box;transform-origin:100% 100%}#vm{transform-origin:center}
+.vc #vw{animation:wv .5s infinite alternate}@keyframes wv{to{transform:rotate(-16deg)}}
+.tkv #vm{animation:tk .25s infinite}
+</style></head><body><div class="w">
+<div class="hd"><h1 id="ti">M. Dupont, au chevet</h1><div style="text-align:right"><div class="tm" id="tm"></div><button class="b g sd" id="sa" onclick="ta()">Ambiance : oui</button> <button class="b g sd" id="sv2" onclick="tv()">Voix : oui</button></div></div>
+<div class="mut" id="su">Réflexion dans l’action : vous êtes dans la chambre, le soin est en cours.</div>
+<div class="sc">
+<svg id="sv" viewBox="0 0 400 240" role="img" aria-label="Chambre d’hôpital : un étudiant infirmier auprès de M. Dupont dans son lit">
+<rect width="400" height="170" fill="#dfeaee"/><rect y="170" width="400" height="70" fill="#b9c7cc"/>
+<rect x="20" y="25" width="70" height="60" fill="#bfe3f2" stroke="#fff" stroke-width="4"/><path d="M55 25v60M20 55h70" stroke="#fff" stroke-width="3"/>
+<g stroke="#7a8b92" fill="#fff"><rect x="320" y="16" width="46" height="52" rx="3"/></g><path d="M328 29h30M328 39h30M328 49h22M328 59h26" stroke="#9fb0b6" stroke-width="3"/>
+<path d="M215 62v128" stroke="#7a8b92" stroke-width="3"/><rect x="207" y="62" width="16" height="26" rx="4" fill="#f5e6a8" stroke="#b9a35a"/><path d="M215 88Q208 120 168 138" fill="none" stroke="#9fc4d3" stroke-width="2"/>
+<rect x="48" y="92" width="8" height="82" rx="3" fill="#7a8b92"/><rect x="50" y="150" width="160" height="14" rx="3" fill="#7a8b92"/><rect x="56" y="132" width="152" height="20" rx="8" fill="#fff"/><rect x="56" y="164" width="6" height="26" fill="#7a8b92"/><rect x="200" y="164" width="6" height="26" fill="#7a8b92"/>
+<rect x="96" y="78" width="70" height="42" rx="14" fill="#f3f6f7" stroke="#d3dde0"/>
+<g id="pt"><g id="tz"><path d="M101 114q29-12 56 0l4 42h-64z" fill="#8fb4c9"/><path d="M121 110l9 13 9-13" fill="none" stroke="#6f95aa" stroke-width="2"/></g>
+<path d="M150 126q16 4 24 24" stroke="#8fb4c9" stroke-width="11" stroke-linecap="round" fill="none"/><circle cx="174" cy="151" r="5" fill="#f1c9a5"/><rect x="167" y="144" width="7" height="3" fill="#fff"/>
+<g id="hd"><circle cx="113" cy="94" r="3.6" fill="#e9bd98"/><circle cx="147" cy="94" r="3.6" fill="#e9bd98"/><ellipse cx="130" cy="92" rx="16" ry="18" fill="#f1c9a5"/>
+<path d="M114 86q-5-7 2-13q14-10 28 0q7 6 2 13q-4-9-16-10q-12 1-16 10z" fill="#d5d9dc"/><path d="M130 91q-3 8 1 10" fill="none" stroke="#d29c78" stroke-width="1.5"/>
+<g class="blk"><ellipse cx="124" cy="92" rx="3.4" ry="2.6" fill="#fff"/><circle cx="124.7" cy="92" r="1.7" fill="#2a2a2a"/><ellipse cx="137" cy="92" rx="3.4" ry="2.6" fill="#fff"/><circle cx="137.7" cy="92" r="1.7" fill="#2a2a2a"/></g>
+<path id="b1" d="M119 86l9-1.5" stroke="#a9afb3" stroke-width="2.4" stroke-linecap="round"/><path id="b2" d="M132 84.5l9 1.5" stroke="#a9afb3" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M122 105q8-4 16 0q-8 3-16 0z" fill="#d5d9dc"/><path id="mo" d="M122 112q8 2 16 0" stroke="#7b3a30" stroke-width="2" fill="none" stroke-linecap="round"/><path id="sw" d="M145 80q3 5 0 8q-3-3 0-8z" fill="#9fd3ea" opacity="0"/></g></g>
+<rect x="60" y="140" width="146" height="18" rx="7" fill="#6a9c89"/><path d="M60 148h146" stroke="#5a8977" stroke-width="2"/>
+<g id="nu"><ellipse cx="250" cy="213" rx="9" ry="4" fill="#fff" stroke="#9fb4ba"/><ellipse cx="268" cy="213" rx="9" ry="4" fill="#fff" stroke="#9fb4ba"/><rect x="244" y="172" width="12" height="40" fill="#cfdde1"/><rect x="262" y="172" width="12" height="40" fill="#cfdde1"/>
+<path d="M278 116q5 18 1 34" stroke="#9fb4ba" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M278 116q5 18 1 34" stroke="#fff" stroke-width="11" stroke-linecap="round" fill="none"/>
+<path d="M238 108q21-8 42 0l4 66h-50z" fill="#fff" stroke="#9fb4ba"/><path d="M250 108l9 15 9-15z" fill="#2f7f8c"/><path d="M249 114q-5 22 6 26" fill="none" stroke="#2b3a42" stroke-width="1.8"/><circle cx="255" cy="141" r="3" fill="#2b3a42"/>
+<rect x="266" y="130" width="11" height="7" fill="#fff" stroke="#2f7f8c"/><rect x="241" y="150" width="14" height="14" fill="none" stroke="#9fb4ba"/><path d="M247 146v8" stroke="#2f7f8c" stroke-width="2"/>
+<g id="ar"><path d="M241 114q-15 8-20 26" stroke="#9fb4ba" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M241 114q-15 8-20 26" stroke="#fff" stroke-width="11" stroke-linecap="round" fill="none"/><circle cx="221" cy="142" r="5.5" fill="#e8b896"/></g>
+<rect x="255" y="102" width="8" height="8" fill="#e8b896"/><circle cx="268" cy="71" r="7" fill="#5a3a2a"/><ellipse cx="259" cy="90" rx="14" ry="16" fill="#e8b896"/><path d="M244 88q2-21 20-19q13 3 14 17q-8-11-20-8q-9 2-14 10z" fill="#5a3a2a"/>
+<g class="blk"><ellipse cx="254" cy="91" rx="2.6" ry="2.2" fill="#fff"/><circle cx="253.5" cy="91" r="1.5" fill="#222"/><ellipse cx="264" cy="91" rx="2.6" ry="2.2" fill="#fff"/><circle cx="263.5" cy="91" r="1.5" fill="#222"/></g>
+<path d="M251 86l6-1M261 85l6 1" stroke="#5a3a2a" stroke-width="1.8" stroke-linecap="round"/><circle cx="250" cy="97" r="2.6" fill="#f2a58f" opacity=".6"/><path id="nm" d="M254 98q5 4 10 0" stroke="#7b3a30" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
+<rect x="168" y="138" width="42" height="4" fill="#7a8b92"/><rect x="206" y="142" width="4" height="48" fill="#7a8b92"/><ellipse cx="186" cy="135" rx="15" ry="4" fill="#fff" stroke="#9fb0b6"/><rect id="cno" x="196" y="116" width="10" height="20" rx="2" fill="#f4d9a0" stroke="#b99a5a"/>
+<g id="vo"><rect x="300" y="152" width="100" height="12" rx="3" fill="#7a8b92"/><rect x="300" y="164" width="6" height="26" fill="#7a8b92"/><rect x="304" y="134" width="92" height="20" rx="8" fill="#fff"/><rect x="350" y="98" width="46" height="36" rx="12" fill="#f3f6f7" stroke="#d3dde0"/><path d="M356 118q16-10 34 0l2 20h-38z" fill="#b8a9d4"/>
+<g id="vw"><path d="M358 122q-14-2-20-16" stroke="#b8a9d4" stroke-width="9" stroke-linecap="round" fill="none"/><circle cx="338" cy="105" r="4.5" fill="#e6bf9c"/></g>
+<g id="vh"><circle cx="372" cy="100" r="14" fill="#e6bf9c"/><path d="M358 96q2-14 16-13q11 2 13 12q-8-7-15-6q-8 0-14 7z" fill="#eceff1"/><g class="blk"><circle cx="367" cy="101" r="1.6" fill="#222"/><circle cx="377" cy="101" r="1.6" fill="#222"/></g><path d="M362 96l7-1M374 95l7 1" stroke="#aeb4b8" stroke-width="2" stroke-linecap="round"/><path id="vm" d="M366 110q6 3 12 0" stroke="#7b3a30" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
+<rect x="304" y="140" width="92" height="14" rx="6" fill="#8aa6c9"/></g>
+</svg>
+<div id="bub" class="bub"></div><div id="bv" class="bub v"></div><div id="hs"></div></div>
+<div class="steps" id="sp"></div>
+<div id="pn"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const LOC={face:[34,36],body:[30,56],tray:[46.5,56],chart:[86,17]};
+const MO={n:'M122 112q8 2 16 0',sad:'M122 115q8-6 16 0',pain:'M122 114h16',agit:'M124 111a6 6 0 1 0 12 0z',calm:'M122 111q8 6 16 0'};
+const STEP=['J’observe','J’interprète','J’agis','Je réinterprète','Je rectifie'];
+const S=[
+{t:'Le refus du CNO',w:'10 h, chambre de M. Dupont',say:'« Non, je n’en veux pas. Ça m’écœure. »',mood:'sad',
+ obs:[['face','Il détourne la tête, la mâchoire serrée.'],['tray','Petit-déjeuner à peine entamé. Le CNO, sucré et tiède, est resté sur la table.'],['chart','Fiche alimentaire : un quart du plateau hier soir. Au dossier : il apprécie ses infusions.']],
+ hyp:['Le goût ou la température du CNO lui est désagréable','Il s’oppose aux soins par principe','Une nausée ou une douleur l’empêche de manger','Il n’a plus faim, c’est normal à son âge'],
+ act:[['Je lui demande ce qui le gêne et je propose un autre goût, frais, plus tard','« Frais… à 16 h, peut-être. »','Il demande une infusion tiède pour « faire passer » et accepte une gorgée de CNO froid.','calm'],['J’insiste : « C’est prescrit, il faut le boire »','« Laissez-moi tranquille ! »','Il croise les bras et repousse le plateau.','sad'],['Je repars sans rien dire ni noter','…','Une heure plus tard, le plateau est intact et rien n’est tracé.','sad']],
+ nb:{s:'« Infirmière, mon verre est vide ! Dites à Dupont de goûter, ça lui fera du bien ! »',o:[['Je le sers vite et je lui demande d’encourager M. Dupont à goûter avec lui','M. Dupont esquisse un sourire : « Bon… une gorgée, avec vous, Martin. »'],['Je lui demande d’attendre, je termine avec M. Dupont','M. Martin patiente. M. Dupont reste concentré sur vous mais ne se détend pas.'],['Je lui demande de ne pas intervenir','M. Martin se vexe et M. Dupont se referme encore davantage.']]},proj:['Proposer le CNO frais en collation (16 h et 21 h)','Déterminer ses préférences alimentaires','Surveiller les apports (réglette, fiche alimentaire)','Prévenir la diététicienne si le refus persiste','Lui expliquer le régime hyperprotéique prescrit','Retirer le CNO du projet de soins']},
+{t:'« J’ai mal, je ne marche plus »',w:'14 h, début de la mobilisation',say:'« Aïe ! J’ai mal, arrêtez ! Je ne marcherai plus. »',mood:'pain',
+ obs:[['face','Grimace, il serre le drap et souffle fort.'],['body','Assis au bord du lit, il se penche pour ne pas appuyer sur le bas du dos.'],['chart','Plaie sacrée de stade 2 au projet de soins. Arthrose connue (cataplasme d’argile à domicile). Aucun antalgique prévu avant le lever.']],
+ hyp:['La douleur vient de la plaie sacrée de stade 2, qui s’aggrave en position assise','Il a peur de tomber, la douleur est secondaire','Il est paresseux, il veut rester au lit','Douleur d’arthrose seule, sans lien avec la plaie'],
+ act:[['Je m’arrête, je le sécurise assis, j’évalue la douleur (EVA) et je le rassure','« Là… en bas, ça tire. »','EVA à 7/10 au sacrum. Le pansement est décollé, la peau autour est rouge sombre. Sa respiration se calme.','calm'],['Je continue : « Encore trois pas, ça va passer »','« Non ! Vous me faites mal ! »','Il pâlit, se raidit : risque de chute.','pain'],['Je le recouche vite sans rien lui demander','…','Le lever est annulé, la douleur reste inexpliquée.','sad']],
+ nb:{s:'« Infirmière, j’ai trop chaud ! Vous pouvez ouvrir la fenêtre ? »',o:[['Je lui réponds que j’arrive dans quelques minutes et je reste auprès de M. Dupont','M. Martin patiente. M. Dupont se sent en sécurité.'],['Je m’éloigne pour ouvrir la fenêtre, M. Dupont reste assis au bord du lit','M. Dupont vacille : il a failli glisser du lit.'],['Je lui dis d’appeler une collègue avec la sonnette','Une collègue arrive pour M. Martin, vous restez auprès de M. Dupont.']]},proj:['Évaluer la douleur avant chaque lever (EVA)','Demander un antalgique à anticiper avant la mobilisation','Adapter le transfert pour éviter l’appui sacré','Reprendre la marche progressivement, relais kiné si besoin','Informer le médecin : douleur et pansement sacré décollé','Ne plus le mobiliser jusqu’à la fin du séjour']},
+{t:'Désorienté pendant le soin',w:'8 h 30, toilette au lit',say:'« Où est ma femme ? Je dois aller au travail ! Qui êtes-vous ? »',mood:'agit',
+ obs:[['face','Regard fuyant : il ne vous reconnaît pas.'],['body','Il tire sur sa perfusion et tente de sortir du lit.'],['chart','Hier soir : orienté. Aucun score cognitif noté ce matin.']],
+ hyp:['Début de confusion aiguë, dont il faut chercher la cause','Démence évoluée, il n’y a rien à faire','Il fait semblant pour éviter la toilette','Simple fatigue du matin'],
+ act:[['Je sécurise la perfusion, je me présente calmement, je le réoriente et je suspends le soin','« Ma femme… elle vient ? »','Il se calme peu à peu mais reste désorienté dans le temps.','calm'],['Je poursuis la toilette en lui expliquant qu’il se trompe','« Lâchez-moi ! »','L’agitation augmente, la perfusion se déplace.','agit'],['Je le contentionne pour finir le soin','« Au secours ! »','Il se débat, le risque de blessure augmente.','agit']],
+ nb:{s:'« Il était déjà perdu cette nuit, il se levait ! Et moi, il me faut le bassin ! »',o:[['Je l’écoute quelques secondes : l’agitation nocturne est une information à transmettre','M. Martin précise : « Il s’est levé trois fois, il cherchait sa femme. » Information notée.'],['Je m’éloigne chercher le bassin, je laisse M. Dupont seul','M. Dupont tente de se lever, la perfusion se tend.'],['Je sonne une collègue pour M. Martin','Une collègue prend en charge M. Martin, vous restez avec M. Dupont.']]},proj:['Surveiller l’état neurologique (orientation, discours)','Rechercher une cause (douleur, déshydratation, globe vésical, infection…)','Prévenir l’infirmier référent et le médecin','Prévenir les chutes (lit bas, environnement)','Horloge et calendrier dans la chambre, réorientation à chaque passage','Ne prévenir personne pour ne pas inquiéter']},
+{t:'Surveillances alimentaires insuffisantes',w:'15 h, soin d’hygiène',say:'« Je ne sais plus si j’ai mangé ce midi… »',mood:'sad',
+ obs:[['chart','Fiche : midi non renseigné, petit-déjeuner noté « mangé un peu ». Aucune quantité.'],['tray','Le plateau du midi est déjà desservi.'],['face','Il semble fatigué et un peu perdu.']],
+ hyp:['Sans données fiables, je ne peux évaluer ni la dénutrition ni la cicatrisation de la plaie','Ce n’est pas grave, il mange normalement','C’est la faute du patient, il oublie','Les surveillances servent surtout à remplir le dossier'],
+ act:[['Je recueille l’information (collègue, plateau, patient), je note « estimé » et je complète la fiche','« Je crois que j’ai mangé la soupe. »','Une collègue confirme environ un tiers du plateau. La fiche est complétée.','calm'],['Je note « a bien mangé » pour compléter la fiche','(il hoche la tête)','La donnée inventée masque un apport insuffisant.','sad'],['Je laisse vide, quelqu’un d’autre s’en chargera','…','Toujours aucune donnée. La dernière pesée date de 4 jours.','sad']],
+ nb:{s:'« Dupont a mangé la moitié de sa soupe ce midi, je l’ai vu ! Et mon plateau est froid… »',o:[['Je note l’information comme « rapportée par le voisin » et je la vérifie avec l’équipe','La donnée est utile et sa source est tracée.'],['Je note « moitié de soupe » sans en préciser la source','L’équipe ne peut pas savoir d’où vient la donnée.'],['Je n’en tiens pas compte : un autre patient n’est pas une source fiable','Vous perdez une information utile, et M. Martin se sent écarté.']]},proj:['Renseigner la fiche alimentaire à chaque repas','Peser deux fois par semaine','Surveiller les apports avec la réglette','Surveiller les apports liquidiens (bilan hydrique)','Transmettre l’insuffisance de suivi à l’équipe','Se fier à ce que dit le patient']},
+{t:'Changements de position non réalisés',w:'16 h, toilette de l’après-midi',say:'« Ça me brûle en bas du dos… »',mood:'pain',
+ obs:[['chart','Plaie sacrée de stade 2 au projet de soins. La feuille de positionnement est vide depuis 8 h.'],['body','La plaie est plus large qu’hier, le pourtour est rouge sombre et chaud, le pansement est décollé.'],['face','Il se tortille et grimace dès qu’il appuie sur le dos.']],
+ hyp:['La plaie de stade 2 s’aggrave faute de décharge (risque de stade 3)','Une infection locale s’installe (rougeur, chaleur, écoulement)','Simple irritation due à la toilette','Il se plaint pour attirer l’attention'],
+ act:[['Je le repositionne en décharge, j’inspecte la plaie et tous les points d’appui, je vérifie le matelas à air','« Ah… c’est mieux. »','La plaie a gagné en largeur et un peu de fibrine apparaît. Talons et ischions sains. Matelas mal réglé.','calm'],['Je refais un pansement sans le repositionner','« Ça tire encore… »','Il reste en appui sur la plaie, la douleur augmente.','pain'],['Je note de le tourner plus tard','« Pas maintenant… j’ai mal »','Une heure d’appui de plus : la plaie suinte, la rougeur s’étend.','pain']],
+ nb:{s:'« Il se plaint depuis ce matin, et il est sur le dos depuis le déjeuner ! Vous pouvez me redonner ma télécommande ? »',o:[['Je le remercie, je vérifie l’heure du dernier changement de position, puis je réponds à sa demande','Le dernier changement date de 8 h. Vous avez une donnée précise à transmettre.'],['Je lui donne sa télécommande sans réagir à son message','M. Martin soupire : « On ne m’écoute pas. » M. Dupont continue de souffrir.'],['Je lui dis que ça ne le regarde pas','M. Martin se tait, vexé. M. Dupont se sent seul.']]},proj:['Changer de position toutes les 1 à 2 h et le tracer','Mesurer la plaie, réévaluer son aspect (signes d’infection) et le score de Braden','Régler le matelas à air, poser des coussins de décharge','Refaire le pansement selon la prescription','Informer le médecin de l’aggravation de la plaie','Laisser le pansement en place sans regarder la plaie']}];
+let st,ph;
+function mood(m){$('#sv').setAttribute('class','m-'+m);const o=$('#mo');o.setAttribute('d',MO[m]);o.setAttribute('fill',m=='agit'?'#6b2323':'none')}
+function say(t,w){const b=$('#bub');b.className='bub '+w;b.textContent=t;b.style.display='block'}
+function nurse(c){const n=$('#nu');n.classList.remove('in','act');void n.getBoundingClientRect();n.classList.add(c)}
+function menu(){ph=0;st=null;$('#ti').textContent='M. Dupont, au chevet';$('#bub').style.display='none';$('#hs').innerHTML='';$('#sp').innerHTML='';mood('n');
+$('#pn').innerHTML='<p>Choisissez la scène à vivre.</p>'+S.map((s,i)=>`<button class="m" onclick="location.hash=${i+1}"><b>${s.t}</b><br><span class="mut">${s.w}</span></button>`).join('')}
+function go(i){st={i,f:[],h:null,a:null,h2:null,chg:0,p:[],done:0};$('#ti').textContent=S[i].t;$('#su').textContent=S[i].w;mood(S[i].mood);say(S[i].say,'p');nurse('in');ph=1;draw()}
+function setp(p){ph=p;draw();window.scrollTo({top:$('.sc').offsetHeight/2,behavior:'smooth'})}
+function ob(k){if(!st.f.includes(k))st.f.push(k);draw()}
+function rad(n,list,sel){return list.map((t,j)=>`<label class="o"><input type="radio" name="${n}" ${sel===j?'checked':''} onchange="st.${n}=${j};draw()"><span>${t}</span></label>`).join('')}
+function draw(){const s=S[st.i];$('#sp').innerHTML=[1,2,3,4,5].map(k=>`<i class="${k<=Math.min(ph,5)?'on':''}"></i>`).join('');
+$('#hs').innerHTML=ph==1?s.obs.map(([k],j)=>`<button class="hs ${st.f.includes(j)?'d':''}" style="left:${LOC[k][0]}%;top:${LOC[k][1]}%" aria-label="Observer" onclick="ob(${j})"></button>`).join(''):'';
+let h='';const obs=st.f.map(j=>`<div class="ob">${s.obs[j][1]}</div>`).join('');
+if(ph==1)h=`<div class="card"><h2>${STEP[0]}</h2><div class="mut">Touchez les points lumineux de la chambre. Que voyez-vous, qu’entendez-vous ? (2 observations au minimum)</div>${obs}<button class="b" ${st.f.length<2?'disabled':''} onclick="setp(2)">Je passe à l’interprétation</button></div>`;
+if(ph==2)h=`<div class="card"><h2>${STEP[1]}</h2><div class="mut">Qu’est-ce qui, selon vous, se passe pour M. Dupont ?</div>${rad('h',s.hyp,st.h)}<button class="b" ${st.h==null?'disabled':''} onclick="setp(3)">Je valide mon interprétation</button></div>`;
+if(ph==3){const a=st.a!=null&&st.done?s.act[st.a]:null;
+h=`<div class="card"><h2>${STEP[2]}</h2><div class="mut">Vous ne pouvez pas attendre. Que faites-vous maintenant, dans la chambre ?</div>`+(a?`<div class="o" style="cursor:default"><span>${s.act[st.a][0]}</span></div><div class="ob nw"><b>Nouvelle observation.</b> ${a[2]}</div><button class="b" onclick="setp(4)">Mon interprétation tient-elle encore ?</button>`:`${rad('a',s.act.map(x=>x[0]),st.a)}<button class="b" ${st.a==null?'disabled':''} onclick="act()">Je le fais</button>`)+'</div>'}
+if(ph==4)h=`<div class="card"><h2>${STEP[3]}</h2><div class="mut">Ce que je pensais : « ${s.hyp[st.h]} ».<br>Avec ce que je viens de voir, est-ce que je maintiens ?</div>`+(st.chg?`${rad('h2',s.hyp,st.h2)}<button class="b" ${st.h2==null?'disabled':''} onclick="setp(5)">Je valide ma nouvelle interprétation</button>`:`<button class="b" onclick="st.h2=st.h;setp(5)">Je la maintiens</button> <button class="b g" onclick="st.chg=1;draw()">Je la modifie</button>`)+'</div>';
+if(ph==5)h=`<div class="card"><h2>${STEP[4]}</h2><div class="mut">Quelles interventions ajoutez-vous ou modifiez-vous dans le projet de soins de M. Dupont ? Cochez celles que vous validez.</div>${s.proj.map((t,j)=>`<label class="o"><input type="checkbox" ${st.p.includes(j)?'checked':''} onchange="tg(${j})"><span>${t}</span></label>`).join('')}<button class="b" ${st.p.length<1?'disabled':''} onclick="setp(6)">Je valide mon projet de soins</button></div>`;
+if(ph==6){const rev=st.h2!=st.h;h=`<div class="card"><h2>Mon raisonnement</h2><b>J’ai observé</b><ul>${st.f.map(j=>`<li>${s.obs[j][1]}</li>`).join('')}</ul><p><b>J’ai interprété :</b> ${s.hyp[st.h]}${rev?`<br><b>Puis j’ai révisé :</b> ${s.hyp[st.h2]}`:'<br>Je l’ai maintenue après la nouvelle observation.'}</p><p><b>J’ai agi :</b> ${s.act[st.a][0]}<br><b>Nouvelle observation :</b> ${s.act[st.a][2]}</p><b>Mon projet de soins rectifié</b><ul>${st.p.map(j=>`<li>${s.proj[j]}</li>`).join('')}</ul></div><div class="card"><h2>Pour le débriefing</h2><ul><li>Quelle information a le plus pesé dans votre décision ?</li><li>Qu’auriez-vous fait si la nouvelle observation avait été différente ?</li><li>Quels éléments du projet de soins de M. Dupont faut-il modifier, et pourquoi ?</li></ul></div><button class="b" onclick="go(${st.i})">Rejouer cette scène</button> <button class="b g" onclick="location.hash=''">Autres scènes</button>`}
+$('#pn').innerHTML=h}
+function tg(j){const k=st.p.indexOf(j);k<0?st.p.push(j):st.p.splice(k,1);draw()}
+function act(){const a=S[st.i].act[st.a];st.done=1;say(a[0],'n');nurse('act');$('#pn').innerHTML='';setTimeout(()=>{mood(a[3]);say(a[1],'p');draw()},1500)}
+function load(){const n=parseInt(location.hash.slice(1));n>=1&&n<=5?go(n-1):menu()}
+
+/* ---- son, chrono, suivi ---- */
+let AC,snd=1,vox=1,cur='n',amb,bT,T0=null,DONE=[];const TOT=1800;
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}}
+T0=+ls('dupT0')||null;try{DONE=JSON.parse(ls('dupD')||'[]')}catch(e){}
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;amb=AC.createBufferSource();amb.buffer=b;amb.loop=true;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=220;const g=AC.createGain();g.gain.value=.015;AC.ag=g;amb.connect(f).connect(g).connect(AC.destination);amb.start()}catch(e){}}AC&&AC.state=='suspended'&&AC.resume();return AC}
+function tone(f,d,v,ty,t0){const a=ac();if(!a||!snd)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+(t0||0);o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.05)}
+function thud(t0,v){const a=ac();if(!a||!snd)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+t0;o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(50,t+.12);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.14);o.connect(g).connect(a.destination);o.start(t);o.stop(t+.16)}
+function steps(n){for(let i=0;i<n;i++)thud(i*.4,.18)}
+function groan(){const a=ac();if(!a||!snd)return;const o=a.createOscillator(),f=a.createBiquadFilter(),g=a.createGain(),t=a.currentTime;o.type='sawtooth';o.frequency.setValueAtTime(150,t);o.frequency.linearRampToValueAtTime(100,t+.7);f.type='lowpass';f.frequency.value=500;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+.1);g.gain.linearRampToValueAtTime(0,t+.75);o.connect(f).connect(g).connect(a.destination);o.start(t);o.stop(t+.8)}
+function beep(){clearTimeout(bT);tone(1000,.09,.04);bT=setTimeout(beep,cur=='agit'?750:cur=='pain'?1000:1500)}
+function chime(){tone(523,.3,.07);tone(784,.35,.07,'sine',.14)}
+function voice(t,w){if(!vox||!window.speechSynthesis||!/[a-zà-ÿ]{3}/i.test(t)||t[0]=='(')return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/[«»…]/g,''));u.lang='fr-FR';const v=speechSynthesis.getVoices().find(x=>/^fr/i.test(x.lang));if(v)u.voice=v;u.pitch=w=='p'?.5:w=='v'?.75:1.1;u.rate=w=='p'?(cur=='agit'?1.15:.85):1;speechSynthesis.speak(u)}
+function ta(){snd=!snd;$('#sa').textContent='Ambiance : '+(snd?'oui':'non');ac();if(AC&&AC.ag)AC.ag.gain.value=snd?.015:0}
+function tv(){vox=!vox;$('#sv2').textContent='Voix : '+(vox?'oui':'non');if(!vox&&window.speechSynthesis)speechSynthesis.cancel()}
+addEventListener('pointerdown',()=>ac(),{once:true});
+function startT(){if(!T0){T0=Date.now();ls('dupT0',T0)}}
+function tick(){const e=$('#tm');if(!T0){e.textContent='30 min · 5 scènes';e.className='tm';return}const r=TOT-Math.floor((Date.now()-T0)/1000);e.className='tm'+(r<=0?' r':r<300?' w':'');e.textContent=(r<=0?'Temps écoulé':Math.floor(r/60)+':'+String(r%60).padStart(2,'0'))+' · '+DONE.length+'/5'}
+setInterval(tick,1000);
+{const o={go,say,ob,act,setp,menu,mood};
+mood=m=>{cur=m;o.mood(m);if(m=='pain'||m=='agit')groan()};
+say=(t,w)=>{o.say(t,w);voice(t,w);const c=$('#sv').classList,k=w=='p'?'tkp':'tkn';c.add(k);setTimeout(()=>c.remove(k),Math.min(3500,t.length*70))};
+go=i=>{startT();ac();o.go(i);steps(4);thud(1.7,.3);thud(1.95,.3);tick()};
+ob=j=>{tone(660,.1,.06);o.ob(j)};
+act=()=>{o.act();steps(3);setTimeout(chime,1500)};
+setp=p=>{o.setp(p);if(p>2&&p<6)tone(440,.12,.05);if(p==6){chime();if(!DONE.includes(st.i)){DONE.push(st.i);ls('dupD',JSON.stringify(DONE))}tick()}};
+menu=()=>{o.menu();document.querySelectorAll('.m').forEach((b,i)=>{if(DONE.includes(i))b.insertAdjacentHTML('afterbegin','✓ ')});
+$('#pn').insertAdjacentHTML('beforeend',(T0?'':'<button class="b" onclick="startT();tick();menu()">Démarrer le chrono de 30 minutes</button> ')+(DONE.length==5?'<div class="card"><b>Les 5 scènes sont jouées.</b> Place au débriefing collectif avec la formatrice.</div>':'<p class="mut">Repère : environ 6 minutes par scène.</p>')+'<button class="b g" onclick="ls(\'dupT0\',\'\');ls(\'dupD\',\'[]\');T0=null;DONE=[];menu();tick()">Réinitialiser le groupe</button>')}}
+tick();
+
+/* ---- voisin de chambre ---- */
+function nbCard(n){return '<div class="card" style="border-color:#8c6bb3"><h2>Votre voisin de chambre vous appelle</h2><div class="ob nw" style="border-color:#8c6bb3">'+n.s+'</div><div class="mut">Pendant que vous êtes auprès de M. Dupont. Comment réagissez-vous ?</div>'+rad('nb',n.o.map(x=>x[0]),st.nb)+(st.nb!=null?'<div class="ob nw">'+n.o[st.nb][1]+'</div>':'')+'</div>'}
+function call(){const n=S[st.i].nb;if(!n)return;const b=$('#bv'),c=$('#sv').classList;b.textContent=n.s;b.style.display='block';c.add('vc','tkv');voice(n.s,'v');setTimeout(()=>c.remove('tkv'),3500);setTimeout(()=>c.remove('vc'),5000);setTimeout(()=>b.style.display='none',8000)}
+{const o={draw,setp,go,menu};
+draw=()=>{o.draw();if(ph==3&&!st.done){const n=S[st.i].nb;if(n)$('#pn').insertAdjacentHTML('afterbegin',nbCard(n))}
+if(ph==6&&st.nb!=null){const n=S[st.i].nb;$('#pn').children[0].insertAdjacentHTML('beforeend','<p><b>Interruption de M. Martin :</b> '+n.o[st.nb][0]+'<br>'+n.o[st.nb][1]+'<br><i>Comment avez-vous hiérarchisé les deux demandes ?</i></p>')}};
+setp=p=>{o.setp(p);if(p==3)call()};
+go=i=>{$('#bv').style.display='none';o.go(i)};menu=()=>{$('#bv').style.display='none';o.menu()}}
+addEventListener('hashchange',load);load();
+</script></body></html>
