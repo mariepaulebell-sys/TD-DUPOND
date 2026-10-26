@@ -58,6 +58,7 @@ button:focus-visible,.o:focus-within{outline:3px solid var(--ac);outline-offset:
 #vw,#vm{transform-box:fill-box;transform-origin:100% 100%}#vm{transform-origin:center}
 .vc #vw{animation:wv .5s infinite alternate}@keyframes wv{to{transform:rotate(-16deg)}}
 .tkv #vm{animation:tk .25s infinite}
+a.b{display:inline-block;text-decoration:none;margin-top:10px}
 </style></head><body><div class="w">
 <div class="hd"><h1 id="ti">M. Dupont, au chevet</h1><div style="text-align:right"><div class="tm" id="tm"></div><button class="b g sd" id="sa" onclick="ta()">Ambiance : oui</button> <button class="b g sd" id="sv2" onclick="tv()">Voix : oui</button></div></div>
 <div class="mut" id="su">Réflexion dans l’action : vous êtes dans la chambre, le soin est en cours.</div>
@@ -188,5 +189,39 @@ draw=()=>{o.draw();if(ph==3&&!st.done){const n=S[st.i].nb;if(n)$('#pn').insertAd
 if(ph==6&&st.nb!=null){const n=S[st.i].nb;$('#pn').children[0].insertAdjacentHTML('beforeend','<p><b>Interruption de M. Martin :</b> '+n.o[st.nb][0]+'<br>'+n.o[st.nb][1]+'<br><i>Comment avez-vous hiérarchisé les deux demandes ?</i></p>')}};
 setp=p=>{o.setp(p);if(p==3)call()};
 go=i=>{$('#bv').style.display='none';o.go(i)};menu=()=>{$('#bv').style.display='none';o.menu()}}
+
+/* ---- J5 : réflexion sur l’action ---- */
+const ST5=['Atteint','Partiellement atteint','Non atteint'];
+const J5=[
+{m:'calm',say:'« J’ai pris mon CNO frais hier, avec Martin. »',tr:1,
+ i:[['Plateau du déjeuner et du dîner','≥ 75 %','80 % au déjeuner, 60 % au dîner',1,'80 % puis 60 % : l’objectif n’est atteint qu’à un repas.'],['CNO consommés','2 par jour','2 sur 2, froids, à 16 h et 21 h',0,'2 sur 2 : conforme à l’objectif.'],['Liquides sur 24 h','1,5 L','1 L',1,'1 L pour 1,5 L : partiel.']],
+ a:[['Le CNO froid, à distance du repas, que j’ai proposé','a'],['Il mange mieux quand M. Martin partage son plateau','o'],['L’infusion tiède l’aide à boire davantage','a'],['La diététicienne a enrichi les repas','o']],
+ e:['Poursuivre les CNO froids à 16 h et 21 h','Exprimer les apports en % du plateau et les tracer','Poursuivre le repas partagé avec M. Martin','Arrêter les CNO car il mange mieux']},
+{m:'calm',say:'« Ça tire moins qu’avant, mais pas encore assez. »',tr:2,
+ i:[['Douleur au lever (EVA)','≤ 3/10','5/10 au lever, 2/10 au repos (7/10 à J0)',1,'5/10 : mieux qu’à J0 mais au-dessus de l’objectif.'],['Marche','10 mètres avec aide','6 mètres avec aide',1,'6 m sur 10 : partiel.'],['Antalgique avant le lever','Prescrit et donné','Non prescrit à J5',2,'Rien n’a été prescrit : non atteint.']],
+ a:[['L’évaluation de la douleur avant chaque lever (EVA)','a'],['Le kinésithérapeute fait marcher M. Dupont','o'],['La décharge et le pansement apaisent la zone sacrée','a'],['M. Martin le fait marcher dans le couloir','o']],
+ e:['Demander un antalgique à anticiper avant le lever','Mesurer la plaie sacrée au prochain pansement','Chronométrer la marche et la tracer','Arrêter la marche jusqu’à cicatrisation']},
+{m:'n',say:'« Je me suis levé cette nuit… je cherchais ma femme. »',tr:4,
+ i:[['Évaluation cognitive (matin et soir)','2 fois par jour','9 fois sur 10',1,'9 sur 10 : presque, donc partiel.'],['Épisodes de désorientation','Aucun','1 épisode la nuit de J3',2,'Un épisode a eu lieu : non atteint.'],['Chutes','Aucune','Aucune',0,'Aucune chute : atteint.']],
+ a:[['La réorientation calme à chaque passage','a'],['M. Martin rassure M. Dupont la nuit','o'],['L’horloge et le calendrier dans la chambre','a'],['Le médecin a ajusté le traitement','o']],
+ e:['Poursuivre l’évaluation 2 fois par jour','Transmettre l’épisode de J3 au médecin','Rechercher la cause (douleur, déshydratation, infection)','Arrêter la surveillance : plus de confusion']},
+{m:'calm',say:'« Hier, j’ai mangé presque tout, je crois… »',tr:1,
+ i:[['Fiche alimentaire remplie','100 % des repas','9 repas sur 12',1,'9 sur 12 : partiel.'],['Pesées','2 par semaine','1 en 5 jours',1,'Une seule pesée : partiel.'],['Source de la donnée notée','Toujours','Toujours (« estimé », « dit par le voisin »)',0,'Source toujours notée : atteint.']],
+ a:[['J’ai mis en place la réglette à chaque repas','a'],['L’aide-soignante remplit la fiche à chaque desserte','o'],['J’ai rappelé à l’équipe d’indiquer la source','a'],['M. Martin signale ce que mange M. Dupont','o']],
+ e:['Poursuivre la fiche à chaque repas, avec la source','Peser 2 fois par semaine : prochaine pesée prévue','Exprimer les apports en % du plateau','Arrêter la surveillance : les apports sont corrects']},
+{m:'pain',say:'« Ça me brûle encore, c’est pire qu’avant. »',tr:2,
+ i:[['Changements de position','Toutes les 1 à 2 h','Tracés de 9 h à 16 h, lacunes la nuit',1,'Tracés le jour seulement : partiel.'],['Plaie sacrée','Réduite de 50 % en 1 semaine','+ 0,5 cm, fibrine',2,'La plaie s’est agrandie : non atteint.'],['Score de Braden','> 15','13',2,'13 pour > 15 : non atteint.']],
+ a:[['Le repositionnement en décharge que j’ai fait','a'],['La dénutrition freine la cicatrisation','o'],['Le réglage du matelas à air','a'],['Les soins de nuit non tracés','o']],
+ e:['Informer le médecin de l’aggravation','Mesurer et tracer la plaie à chaque pansement','Poursuivre les changements de position, y compris la nuit','Arrêter les changements de position la nuit']}];
+function j5(){const s=S[st.i],d=J5[st.i];$('#hs').innerHTML='';$('#sp').innerHTML='<i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>';
+if(!st.j5){st.j5=1;$('#bv').style.display='none';st.r=[null,null,null];st.q=[null,null,null,null];st.e=[];mood(d.m);say(d.say,'p')}
+const rd=(nm,arr,sel,fn)=>`<div style="display:flex;gap:6px;flex-wrap:wrap">${arr.map((t,j)=>`<label class="o" style="flex:1;min-width:110px"><input type="radio" name="${nm}" ${sel===j?'checked':''} onchange="${fn}=${j};draw()"><span>${t}</span></label>`).join('')}</div>`;
+let h='';
+if(ph==7)h=`<div class="card"><h2>J5 : je compare</h2><div class="mut">Cinq jours ont passé. Réflexion sur l’action : pour chaque objectif, comparez la valeur mesurée à ce que vous attendiez.</div>${d.i.map((x,k)=>`<div class="ob"><b>${x[0]}</b><br>Objectif : ${x[1]}<br>Mesuré à J5 : ${x[2]}</div>${rd('r'+k,ST5,st.r[k],'st.r['+k+']')}${st.v1?`<div class="ob nw">${st.r[k]==x[3]?'Cohérent avec les chiffres.':'À rediscuter : '+x[4]}</div>`:''}`).join('')}${st.v1?'<button class="b" onclick="setp(8)">Je continue</button>':`<button class="b" ${st.r.includes(null)?'disabled':''} onclick="st.v1=1;draw()">Je valide mon évaluation</button>`}</div>`;
+if(ph==8)h=`<div class="card"><h2>Qu’est-ce qui vient de mes actions ?</h2><div class="mut">Tout n’est pas dû à vous. Pour chaque résultat, que choisissez-vous ?</div>${d.a.map((x,k)=>`<div class="ob"><b>${x[0]}</b></div>${rd('q'+k,['Mes actions','Autre facteur'],st.q[k],'st.q['+k+']')}${st.v2?`<div class="ob nw">${(st.q[k]==0?'a':'o')==x[1]?'Cohérent.':'À discuter en groupe.'}</div>`:''}`).join('')}${st.v2?'<button class="b" onclick="setp(9)">Je continue</button>':`<button class="b" ${st.q.includes(null)?'disabled':''} onclick="st.v2=1;draw()">Je valide</button>`}</div>`;
+if(ph==9)h=`<div class="card"><h2>Et ensuite ?</h2><div class="mut">Quelle action donnez-vous à l’équipe suivante ? Cochez celles que vous transmettez.</div>${d.e.map((t,j)=>`<label class="o"><input type="checkbox" ${st.e.includes(j)?'checked':''} onchange="const k=st.e.indexOf(${j});k<0?st.e.push(${j}):st.e.splice(k,1);draw()"><span>${t}</span></label>`).join('')}<button class="b" ${st.e.length<1?'disabled':''} onclick="setp(10)">Je valide</button></div>`;
+if(ph==10)h=`<div class="card"><h2>Mon évaluation à J5</h2><b>Résultats comparés aux objectifs</b><ul>${d.i.map((x,k)=>`<li>${x[0]} : ${x[2]} (objectif ${x[1]}) → ${ST5[st.r[k]]}</li>`).join('')}</ul><b>Ce qui vient de mes actions</b><ul>${d.a.filter((x,k)=>st.q[k]==0).map(x=>`<li>${x[0]}</li>`).join('')||'<li>Aucun</li>'}</ul><b>Autres facteurs</b><ul>${d.a.filter((x,k)=>st.q[k]==1).map(x=>`<li>${x[0]}</li>`).join('')||'<li>Aucun</li>'}</ul><b>Et ensuite : action pour l’équipe suivante</b><ul>${st.e.map(j=>`<li>${d.e[j]}</li>`).join('')}</ul></div><div class="card"><h2>Transmettre à l’équipe</h2><div class="mut">Écrivez maintenant cette évaluation dans le logiciel de transmissions, de façon chiffrée, datée, comparée à l’objectif, sourcée, factuelle, avec l’action pour l’équipe suivante.</div><a class="b" href="transmission.html#${d.tr}">Ouvrir le logiciel de transmissions</a> <button class="b g" onclick="location.hash=''">Autres scènes</button></div>`;
+$('#pn').innerHTML=h}
+{const o={draw};draw=()=>{if(ph>=7)j5();else{o.draw();if(ph==6)$('#pn').insertAdjacentHTML('beforeend','<button class="b g" onclick="setp(7)">J5 : qu’est-ce qui a fonctionné ? (réflexion sur l’action)</button>')}}}
 addEventListener('hashchange',load);load();
 </script></body></html>
