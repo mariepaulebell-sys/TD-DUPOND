@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dossier de soins – Transmissions de M. Dupont</title>
+<style>
+:root{--bg:#eef3f5;--fg:#16272c;--card:#fff;--ac:#1f6f78;--bt:#fff;--mut:#587077;--bd:#c9dadd;--ok:#2e8b63;--no:#c0502a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a1d;--fg:#e4eef0;--card:#1a272b;--ac:#62c3cd;--bt:#08181b;--mut:#9db3b9;--bd:#32474d;--ok:#5cc596;--no:#f09a6e}}
+:root[data-theme="dark"]{--bg:#101a1d;--fg:#e4eef0;--card:#1a272b;--ac:#62c3cd;--bt:#08181b;--mut:#9db3b9;--bd:#32474d;--ok:#5cc596;--no:#f09a6e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 "Trebuchet MS",Verdana,system-ui,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:8px 12px 30px}
+.top{display:flex;justify-content:space-between;align-items:center;background:var(--ac);color:var(--bt);border-radius:10px 10px 0 0;padding:8px 12px;font-weight:700;font-size:15px}
+.pat{background:var(--card);border:1px solid var(--bd);border-top:0;border-radius:0 0 10px 10px;padding:8px 12px;font-size:14px;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-top:10px}
+h2{font-size:17px;margin:0 0 6px}.mut{color:var(--mut);font-size:14px}
+.b{background:var(--ac);color:var(--bt);border:0;border-radius:10px;padding:10px 15px;font:inherit;font-weight:700;margin:10px 6px 0 0;cursor:pointer}
+.b.g{background:transparent;color:var(--ac);border:2px solid var(--ac)}.b:disabled{opacity:.4}
+.m{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-top:9px;cursor:pointer}
+textarea{width:100%;box-sizing:border-box;min-height:130px;font:inherit;color:var(--fg);background:var(--bg);border:2px solid var(--bd);border-radius:10px;padding:10px;resize:vertical}
+textarea:focus{outline:3px solid var(--ac);border-color:var(--ac)}
+.cr{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cr span{font-size:13px;padding:3px 9px;border-radius:14px;border:1px solid var(--bd);color:var(--mut)}.cr span.y{border-color:var(--ok);color:var(--ok);font-weight:700}
+.mi{margin-top:8px;font-size:14px;border-left:4px solid var(--no);padding:4px 10px;background:color-mix(in srgb,var(--no) 9%,transparent);border-radius:0 8px 8px 0}
+.ch{display:inline-block;font:inherit;font-size:13px;text-align:left;color:var(--ac);background:transparent;border:1px dashed var(--ac);border-radius:8px;padding:4px 8px;margin:5px 5px 0 0;cursor:pointer}
+ul{margin:4px 0 0;padding-left:20px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.cols{grid-template-columns:1fr}}
+.ns{display:flex;gap:10px;align-items:flex-start;margin-top:12px;animation:in .4s}.ns svg{flex:0 0 78px;width:78px}
+.bu{background:var(--card);border:2px solid var(--ac);border-radius:12px;padding:10px 12px;font-size:15px}
+.blk{animation:bk 4.5s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes bk{94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+button:focus-visible{outline:3px solid var(--ac);outline-offset:2px}@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+.tabs{display:flex;gap:6px;margin-top:10px}.tabs button{flex:1;font:inherit;font-weight:700;padding:9px;border-radius:10px;border:2px solid var(--ac);background:transparent;color:var(--ac);cursor:pointer}.tabs button.on{background:var(--ac);color:var(--bt)}
+</style></head><body><div class="w">
+<div class="top"><span>Dossier de soins informatisé</span><span id="tm"></span></div>
+<div class="pat"><b>DUPOND M.</b> · Chambre 12 (double) · Gériatrie · Transmissions ciblées</div>
+<div class="tabs" id="tabs"></div><div id="v"></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const VAG=/\b(bien|ok|mieux|bon|bonne|normal|normale|ras|tranquille|ça va|rien à signaler|stable ?!)\b/i;
+const CR=[['Chiffrée',t=>/\d/.test(t)&&/(eva|epa|braden|moca|stratify|kg|\bg\b|ml|\bl\b|litre|%|\/10|\/30|cm|mm|min|\bh\b|fois)/i.test(t)],
+['Datée',t=>/(\bj\s?\d|jour|ce matin|hier|aujourd|\d\s?h\b|ce soir|pesée du)/i.test(t)],
+['Comparée à l’objectif',t=>/(objectif|atteint|partiellement|non atteint|attendu|contre|par rapport|à j0|j0)/i.test(t)],
+['Sourcée',t=>/(eva|epa|braden|moca|stratify|pes[ée]e|réglette|fiche|bilan|« |"|mesur|évalu|observ|selon|dit)/i.test(t)],
+['Factuelle',t=>t.trim().length>25&&!VAG.test(t)],
+['Et ensuite : action pour l’équipe suivante',t=>/(poursui|continu|modifi|arr[êe]t|à surveiller|à mesurer|à faire|à vérifier|à noter|à chronométrer|à transmettre|prévu|réévalu|prochain|à refaire)/i.test(t)]];
+const P=[
+{n:'Dénutrition et déshydratation',cible:'Dénutrition – risque de déshydratation',
+obj:['Au moins 75 % du plateau au déjeuner et au dîner','Au moins 1,5 L de liquides par 24 h (hors repas)','Suivi quotidien des ingesta'],
+int:['Prescrit – Thérapie nutritionnelle : régime hyperprotéique hypercalorique, compléments nutritionnels oraux, diététicienne au besoin','Prescrit – Surveillance de l’état nutritionnel : pesée 2 fois par semaine, ingesta (fiche ou réglette), albumine, protéines totales, hémoglobine','Autonome – Surveillance de l’équilibre hydrique : entrées et sorties, signes précoces de déshydratation, un verre d’eau (150 mL) toutes les 2 heures, eau gélifiée, tisanes, bouillons'],
+f:[['la prise alimentaire (% du plateau ou EPA)',/%|plateau|epa|prise alimentaire/i,['Prise alimentaire : … % du plateau (objectif 75 %)','EPA (évaluation de la prise alimentaire) : …/10 (…/10 à J0)']],
+['les compléments nutritionnels (CNO)',/cno|compl[ée]ment/i,['CNO : … sur 2 consommés (heure, température)']],
+['le poids',/poids|\bkg\b|pes[ée]e/i,['Poids : … kg (pesée du …), variation …']],
+['l’hydratation',/litre|\d\s?l\b|\bml\b|bilan|hydrat/i,['Hydratation : … L / 24 h (objectif 1,5 L)','Bilan hydrique : … mL']],
+['les signes cliniques',/urine|peau|bouche|muqueuse/i,['Signes : urines …, peau …, bouche …']]]},
+{n:'Plaie de pression',cible:'Plaie de pression chez l’adulte',
+obj:['Score de Braden supérieur à 15 d’ici 8 jours','Surface de l’escarre sacrée réduite de 50 % en 1 semaine, sans signe d’infection','Suivi clinique de la plaie à chaque pansement'],
+int:['Autonome – Prévention des escarres : score de Braden, inspection de la peau chaque jour, changement de position toutes les 1 à 2 heures, coussins de décharge, matelas à air dynamique','Autonome – Soins des escarres : surveiller couleur, température, œdème, humidité et apparence de la plaie ; nettoyage à l’eau et au savon neutre puis NaCl 0,9 % ; pansement hydrocolloïde'],
+f:[['le score de Braden',/braden/i,['Score de Braden : … (objectif supérieur à 15)']],
+['les dimensions de la plaie',/\d\s?(cm|mm)|dimension|surface/i,['Dimensions de la plaie : … cm × … cm (J0 : …)']],
+['le stade',/stade/i,['Stade : …']],
+['l’aspect du lit de la plaie',/rose|fibrine|nécro|lit de la plaie|bourgeon|exsudat|berges|pourtour|rouge/i,['Lit de la plaie : …, exsudat …, pourtour …']],
+['les signes d’infection',/infect|chaleur|écoulement|odeur/i,['Signes d’infection : chaleur …, écoulement …, odeur …']],
+['le pansement',/pansement|hydrocolloïde/i,['Pansement : …, refait le …']],
+['la décharge',/matelas|position|coussin|décharge/i,['Décharge : matelas …, changements de position toutes les … h']]]},
+{n:'Syndrome de fragilité',cible:'Syndrome de fragilité chez la personne âgée',
+obj:['1 h de marche par jour','Risque de chute évalué (Stratify) dans les 24 h','Isolement brisé (chambre double)','Environnement conforme à chaque équipe'],
+int:['Amélioration de la socialisation : voisin de chambre, assistante sociale, fille','Thérapie par l’exercice : marche, accompagné de son voisin','Prévention des chutes : siège de toilette surélevé, chaussures adaptées, environnement','Amélioration de l’adaptation : verbaliser ses émotions, objectifs à court terme, approche calme'],
+f:[['la marche (durée, fréquence)',/\d+\s?(min|minutes|h\b|m\b|mètres)|durée|fois/i,['Marche : … min, … fois par jour (objectif 1 h)','Distance : … m, avec / sans aide']],
+['le risque de chute',/stratify|chute/i,['Risque de chute : Stratify …, réévalué le …']],
+['les transferts',/transfert|toilette|lever|chaussure|aide/i,['Transferts : se lève seul / avec aide …']],
+['le lien social et le retour à domicile',/voisin|fille|assistante|domicile/i,['Lien social : … ; retour à domicile : …']],
+['les paroles du patient',/« |"|\bdit\b|verbalise|peur/i,['Il dit : « … »']]]},
+{n:'Risque de confusion aiguë',cible:'Risque de confusion aiguë',
+obj:['Évaluer l’état cognitif 2 fois par jour et tracer tout signe de confusion'],
+int:['Surveillance de l’état neurologique : mémoire (date, lieu, horloge, calendrier), MoCA, caractéristiques de la parole','Aide aux soins personnels : évaluer la capacité à faire sa toilette, assistance si nécessaire, routine'],
+f:[['le score cognitif',/moca|\/30|score/i,['Score MoCA : …/30 (date)']],
+['l’orientation',/date|lieu|orient|horloge|calendrier/i,['Orientation : temps …, lieu …']],
+['la mémoire et les consignes',/oubli|mémoire|ancrage|consigne/i,['Mémoire : …, consignes retenues … minutes']],
+['les paroles du patient',/« |"|\bdit\b|verbalise|angoisse/i,['Il dit : « … »']],
+['les soins personnels',/toilette|aide|autonom|soins personnels/i,['Soins personnels : … en autonomie, aide pour …']],
+['l’information transmise',/médecin|référent|prévenu|transmis|alerté/i,['Information transmise à … le …']]]}];
+const MT={M:['Maladie',['Dénutrition modérée (albumine 30 g/L, – 6 kg en 4 mois)','Plaie de pression sacrée stade 2','Risque de confusion aiguë, MoCA < 26/30','Syndrome de fragilité','Arthrose']],
+T:['Traitement',['Régime hyperprotéique hypercalorique, 2 CNO froids à 16 h et 21 h','Pansement hydrocolloïde, matelas à air dynamique','Changements de position toutes les 1 à 2 h','Surveillances : poids 2 fois par semaine, EPA, Braden, bilan hydrique, MoCA']],
+V:['Vécu',['« J’ai peur de retomber tout seul chez moi »','Angoisse face à l’avenir : « je ne me rappelle de rien »','Très croyant, ne peut plus aller à la messe','Savoirs profanes : cataplasme d’argile, infusion']],
+E:['Environnement',['Chambre double : voisin avec qui il s’entend bien','Fille impliquée, rassurée','Assistante sociale mobilisée','Lit bas, sonnette accessible, siège de toilette surélevé']],
+D:['Devenir',['Retour à domicile avec aides spécifiques','Relais par les professionnels du secteur, kiné','À poursuivre : mesurer la plaie, chronométrer la marche','Transmettre les scores MoCA au médecin']]};
+const NS=`<svg viewBox="0 0 80 100" aria-label="Infirmière de nuit"><rect x="14" y="50" width="52" height="50" rx="16" fill="#27456b"/><path d="M33 50l7 11 7-11z" fill="#9fc3e8"/><circle cx="40" cy="30" r="17" fill="#e8b896"/><path d="M22 28q3-24 24-20q14 4 13 20q-8-12-22-9q-9 3-15 9z" fill="#3a2a22"/><circle cx="52" cy="10" r="7" fill="#3a2a22"/><g class="blk"><circle cx="33" cy="32" r="2" fill="#222"/><circle cx="46" cy="32" r="2" fill="#222"/></g><path d="M34 41q6 4 12 0" stroke="#7b3a30" stroke-width="2" fill="none"/><path d="M62 70a6 6 0 1 1-2-10a5 5 0 0 0 2 10z" fill="#f2d478"/></svg>`;
+let st={p:0,v:'menu',tr:'',mt:{M:'',T:'',V:'',E:'',D:''}},T0=null;
+try{T0=+localStorage.getItem('dpiT0')||null}catch(e){}
+function startT(){if(!T0){T0=Date.now();try{localStorage.setItem('dpiT0',T0)}catch(e){}}}
+setInterval(()=>{const e=$('#tm');if(!T0){e.textContent='45 min';return}const r=2700-Math.floor((Date.now()-T0)/1000);e.textContent=r<=0?'Temps écoulé':Math.floor(r/60)+':'+String(r%60).padStart(2,'0')},1000);
+function load(){const n=parseInt(location.hash.slice(1));if(n>=1&&n<=4){st.p=n-1;st.tr='';st.v='res';startT()}else if(n==5){st.v='mt';startT()}else st.v='menu';draw()}
+function nurse(t,ok){return `<div class="ns">${NS}<div class="bu" style="border-color:var(${ok?'--ok':'--no'})"><b>Infirmière de nuit</b><br>${t}</div></div>`}
+function draw(){const p=P[st.p];let h='';
+if(st.v=='menu')h=`<div class="card"><h2>Évaluation de l’action</h2><div class="mut">Choisissez le problème de votre groupe. Vous retrouvez son projet de soins, puis vous imaginez comment vous noteriez l’évaluation de vos actions dans le logiciel.</div></div>`+P.map((x,i)=>`<button class="m" onclick="location.hash=${i+1}"><b>${x.n}</b></button>`).join('');
+if(st.v=='res')h=`<div class="card"><h2>Projet de soins : ${p.cible}</h2><div class="mut">Nous sommes à J5 : vous avez réalisé ces actions auprès de M. Dupont. Imaginez ce que vous auriez observé, puis comment vous le noteriez dans le logiciel pour évaluer vos actions.</div><b style="display:block;margin-top:8px">Objectifs</b><ul>${p.obj.map(o=>`<li>${o}</li>`).join('')}</ul><b>Interventions</b><ul>${p.int.map(o=>`<li>${o}</li>`).join('')}</ul><button class="b" onclick="st.v='tr';draw()">Imaginer l’évaluation de l’action</button></div>`;
+if(st.v=='tr')h=`<div class="card"><h2>Évaluation de l’action : ${p.cible}</h2><div class="mut">Imaginez l’évaluation à J5 et écrivez-la comme vous la saisiriez dans le logiciel de transmissions.</div><details><summary class="mut">Projet de soins</summary><div class="cols"><ul>${p.obj.map(o=>`<li>${o}</li>`).join('')}</ul><ul>${p.int.map(o=>`<li>${o}</li>`).join('')}</ul></div></details><textarea id="ta" placeholder="Ex. : Escarre ok" oninput="upd()">${esc(st.tr)}</textarea><div class="cr" id="cr"></div><div id="mi"></div><button class="b" onclick="send()">Envoyer à l’équipe de nuit</button><button class="b g" onclick="location.hash=''">Autre problème</button><div id="ns"></div></div>`;
+if(st.v=='mt')h=`<div class="card"><h2>Transmission globale (MTVED) : M. Dupont</h2><div class="mut">Cinq rubriques, l’essentiel pour l’équipe suivante. Touchez une possibilité pour l’ajouter, ou écrivez la vôtre.</div>${Object.keys(MT).map(k=>`<b style="display:block;margin-top:10px">${k} – ${MT[k][0]}</b><textarea id="t${k}" style="min-height:70px" oninput="st.mt.${k}=this.value">${esc(st.mt[k])}</textarea>${MT[k][1].map((c,i)=>`<button class="ch" onclick="addM('${k}',${i})">+ ${c}</button>`).join('')}`).join('')}<button class="b" onclick="sendM()">Envoyer à l’équipe de nuit</button><button class="b g" onclick="location.hash=''">Menu</button><div id="ns"></div></div>`;
+$('#tabs').innerHTML=`<button class="${st.v=='mt'?'':'on'}" onclick="location.hash=''">Évaluation de l’action</button><button class="${st.v=='mt'?'on':''}" onclick="location.hash=5">Transmission (MTVED)</button>`;$('#v').innerHTML=h;if(st.v=='tr')upd()}
+function upd(){const p=P[st.p],t=$('#ta').value;st.tr=t;const ok=CR.map(c=>c[1](t));
+$('#cr').innerHTML=CR.map((c,i)=>`<span class="${ok[i]?'y':''}">${ok[i]?'✓':'○'} ${c[0]}</span>`).join('');
+const miss=p.f.filter(f=>!f[1].test(t));
+$('#mi').innerHTML=miss.length?`<div class="mi"><b>Le logiciel signale : non renseigné</b><br>${miss.map(m=>m[0]).join(' · ')}</div>`+miss.map(m=>m[2].map(c=>`<button class="ch" onclick="ins(this.dataset.t)" data-t="${c}">+ ${c}</button>`).join('')).join(''):''}
+function ins(x){const a=$('#ta');a.value+=(a.value&&!/\n$/.test(a.value)?'\n':'')+x;a.focus();upd()}
+function send(){const p=P[st.p],t=$('#ta').value.trim();if(!t){$('#ns').innerHTML=nurse('Il n’y a rien à lire dans la transmission.',0);return}
+const sc=CR.filter(c=>c[1](t)).length,miss=p.f.filter(f=>!f[1].test(t));
+const q=esc(t.slice(0,40))+(t.length>40?'…':'');let r,ok=0;
+if(sc<=2||miss.length>=p.f.length-1)r=`Je lis « ${q} ». Je ne sais pas quoi mesurer ce soir, ni jusqu’où on veut aller. Je fais quoi ?`;
+else if(sc<=4||miss.length>2)r=`J’ai compris l’idée de « ${q} », mais il me manque encore : ${miss.slice(0,2).map(m=>m[0]).join(' et ')||'des éléments chiffrés et comparés à l’objectif'}.`;
+else{ok=1;r=`Je sais ce que je dois surveiller cette nuit, et par rapport à quel objectif. Merci.<br><i class="mut">À vous : qu’est-ce qui résulte de vos actions, qu’est-ce qui vient d’autre chose ?</i>`}
+$('#ns').innerHTML=nurse(r,ok)+(ok?'<button class="b" onclick="location.hash=5">Passer à la transmission (MTVED)</button>':'')}
+function addM(k,i){const a=$('#t'+k);a.value+=(a.value?'\n':'')+MT[k][1][i];st.mt[k]=a.value;a.focus()}
+function sendM(){const pb=[];for(const k in MT){const t=st.mt[k].trim();if(t.length<25)pb.push(`${MT[k][0]} : presque rien`);else if(t.length>420)pb.push(`${MT[k][0]} : trop long, que dois-je retenir ?`);else if(k=='V'&&!/« |"|\bdit\b/.test(t))pb.push('Vécu : aucune parole du patient');else if(k=='D'&&!/poursui|à faire|retour|suite|prévu|relais/i.test(t))pb.push('Devenir : je ne sais pas quelle est la suite')}
+$('#ns').innerHTML=pb.length?nurse(`Je ne peux pas encore me représenter M. Dupont :<ul>${pb.map(x=>`<li>${x}</li>`).join('')}</ul>`,0):nurse('Je comprends M. Dupont en une minute : où on en est, ce qu’il vit, et la suite. Bonne fin de service !',1)}
+addEventListener('hashchange',load);load();
+</script></body></html>
